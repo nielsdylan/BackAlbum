@@ -5,6 +5,7 @@ use App\Http\Controllers\Hotel\Configuration\CategoriaController;
 use App\Http\Controllers\Hotel\Configuration\HabitacionController;
 use App\Http\Controllers\Hotel\Configuration\NivelController;
 use App\Http\Controllers\Hotel\Configuration\TarifaController;
+use App\Http\Controllers\PanelControl\Galeria\AlbumesController;
 use App\Http\Controllers\PanelControl\ServicioController;
 use App\Http\Controllers\PanelControl\SliderController;
 use App\Http\Middleware\JwtMiddleware;
@@ -64,19 +65,14 @@ Route::middleware([JwtMiddleware::class])->group(function(){
     *
     */
     Route::prefix('panel-control')->group(function(){
-        Route::prefix('servicios')->group(function(){
-            Route::get('/lista', [ServicioController::class, 'lista']);
-            Route::get('/ver/{id}', [ServicioController::class, 'ver']);
-            Route::post('/guardar', [ServicioController::class, 'guardar']);
-            Route::post('/cambiarEstado', [ServicioController::class, 'cambiarEstado']);
-            Route::post('/eliminar', [ServicioController::class, 'eliminar']);
-        });
-        Route::prefix('sliders')->group(function(){
-            Route::get('/lista', [SliderController::class, 'lista']);
-            Route::get('/ver/{id}', [SliderController::class, 'ver']);
-            Route::post('/guardar', [SliderController::class, 'guardar']);
-            Route::post('/cambiarEstado', [SliderController::class, 'cambiarEstado']);
-            Route::post('/eliminar', [SliderController::class, 'eliminar']);
+        Route::prefix('galeria')->group(function(){
+            Route::prefix('albumes')->group(function(){
+                Route::get('/lista', [AlbumesController::class, 'lista']);
+                Route::get('/ver/{id}', [AlbumesController::class, 'ver']);
+                Route::post('/guardar', [AlbumesController::class, 'guardar']);
+                Route::post('/cambiarEstado', [AlbumesController::class, 'cambiarEstado']);
+                Route::post('/eliminar', [AlbumesController::class, 'eliminar']);
+            });
         });
 
     });
