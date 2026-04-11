@@ -5,6 +5,7 @@ namespace App\Http\Controllers\PanelControl\Galeria;
 use App\Http\Controllers\Controller;
 use App\Models\Albumqr\Album;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AlbumesController extends Controller
 {
@@ -27,13 +28,15 @@ class AlbumesController extends Controller
     }
     public function guardar(Request $request)
     {
+        // return [Auth::guard('api')->user()->id];exit;
         try {
             $data = Album::firstOrNew(
                 ['id' => $request->id],
             );
 
-            $data->nombre = $request->nombre;
-            $data->descripcion = $request->descripcion;
+            $data->titulo       = $request->titulo;
+            $data->descripcion  = $request->descripcion;
+            $data->usuario_id   = Auth::guard('api')->user()->id;
             $data->save();
 
             return response()->json([
