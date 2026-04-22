@@ -72,6 +72,7 @@ Route::middleware([JwtMiddleware::class])->group(function(){
                 Route::post('/guardar', [AlbumesController::class, 'guardar']);
                 Route::post('/cambiarEstado', [AlbumesController::class, 'cambiarEstado']);
                 Route::post('/eliminar', [AlbumesController::class, 'eliminar']);
+                Route::get('/all-albumes', [AlbumesController::class, 'allAlbumes']);
             });
         });
 

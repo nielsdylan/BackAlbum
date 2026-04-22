@@ -28,6 +28,7 @@ class AlbumesController extends Controller
     }
     public function guardar(Request $request)
     {
+        return [$request->all()];exit;
         // return [Auth::guard('api')->user()->id];exit;
         try {
             $data = Album::firstOrNew(
@@ -99,5 +100,14 @@ class AlbumesController extends Controller
                 "icon" => "error"
             ], 500);
         }
+    }
+    public function allAlbumes()
+    {
+
+        $data = Album::all();
+
+        return response()->json($data, 200);
+        // Nota: Ya no es necesario envolverlo en ["data" => $lista]
+        // porque paginate() ya crea una estructura con la llave 'data'.
     }
 }
