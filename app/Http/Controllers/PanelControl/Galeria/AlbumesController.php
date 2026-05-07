@@ -28,7 +28,7 @@ class AlbumesController extends Controller
     }
     public function guardar(Request $request)
     {
-        return [$request->all()];exit;
+        // return [$request->all()];exit;
         // return [Auth::guard('api')->user()->id];exit;
         try {
             $data = Album::firstOrNew(

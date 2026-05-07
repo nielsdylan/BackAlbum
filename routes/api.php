@@ -6,6 +6,7 @@ use App\Http\Controllers\Hotel\Configuration\HabitacionController;
 use App\Http\Controllers\Hotel\Configuration\NivelController;
 use App\Http\Controllers\Hotel\Configuration\TarifaController;
 use App\Http\Controllers\PanelControl\Galeria\AlbumesController;
+use App\Http\Controllers\PanelControl\Galeria\FotosController;
 use App\Http\Controllers\PanelControl\ServicioController;
 use App\Http\Controllers\PanelControl\SliderController;
 use App\Http\Middleware\JwtMiddleware;
@@ -73,6 +74,14 @@ Route::middleware([JwtMiddleware::class])->group(function(){
                 Route::post('/cambiarEstado', [AlbumesController::class, 'cambiarEstado']);
                 Route::post('/eliminar', [AlbumesController::class, 'eliminar']);
                 Route::get('/all-albumes', [AlbumesController::class, 'allAlbumes']);
+            });
+            Route::prefix('fotos')->group(function(){
+                Route::get('/lista', [FotosController::class, 'lista']);
+                Route::get('/ver/{id}', [FotosController::class, 'ver']);
+                Route::post('/guardar', [FotosController::class, 'guardar']);
+                Route::post('/cambiarEstado', [FotosController::class, 'cambiarEstado']);
+                Route::post('/eliminar', [FotosController::class, 'eliminar']);
+                Route::get('/all-albumes', [FotosController::class, 'allAlbumes']);
             });
         });
 

@@ -18,9 +18,10 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->string('name_image');
             $table->string('weight');
+            $table->string('weightKB');
             $table->string('path');
             $table->string('extension');
-            $table->integer('user_id');
+            $table->integer('usuario_id');
             $table->integer('albumes_id');
             $table->timestamps();
             $table->softDeletes();
