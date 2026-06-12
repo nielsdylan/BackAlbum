@@ -42,12 +42,6 @@ class FotosController extends Controller
 
             $data->description  = $request->descripcion;
 
-            $data->name_image   = $request->name_imagen;
-
-            $data->weight       = $request->weight;
-
-            $data->extension    = $request->extension;
-
             if ($request->hasFile('imagen')) {
 
                 if ($data->imagen && Storage::disk('public')->exists($data->imagen)) {
@@ -62,8 +56,16 @@ class FotosController extends Controller
                 $rutaArchivo = $file->storeAs('panel-control/galeria', $nombreUnico, 'public');
 
                 $data->path = $rutaArchivo;
+
+                $data->name_image   = $request->name_imagen;
+
+                $data->weight       = $request->weight;
+
+                $data->extension    = $request->extension;
+
+                $data->weightKB     = $request->weightKB;
             }
-            $data->weightKB     = $request->weightKB;
+
 
             $data->usuario_id   = Auth::guard('api')->user()->id;
 
