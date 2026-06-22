@@ -19,6 +19,7 @@ class AlbumSeeder extends Seeder
             'descripcion'   => 'El momento mas importe de mi linea de estudiante.',
             'estado'    => 1,
             'usuario_id'    => 1,
+            'plantilla_id'    => 1,
             'created_at'    => date('Y-m-d H:i:s'),
             'updated_at'    => date('Y-m-d H:i:s'),
         ]);
@@ -27,6 +28,7 @@ class AlbumSeeder extends Seeder
             'descripcion'   => 'Disfrutando de mis vacaciones en Lima.',
             'estado'    => 1,
             'usuario_id'    => 1,
+            'plantilla_id'    => 1,
             'created_at'    => date('Y-m-d H:i:s'),
             'updated_at'    => date('Y-m-d H:i:s'),
         ]);
@@ -35,6 +37,7 @@ class AlbumSeeder extends Seeder
             'descripcion'   => 'Disfrutando de mi pasantia.',
             'estado'    => 1,
             'usuario_id'    => 1,
+            'plantilla_id'    => 1,
             'created_at'    => date('Y-m-d H:i:s'),
             'updated_at'    => date('Y-m-d H:i:s'),
         ]);
