@@ -37,6 +37,8 @@ class AlbumesController extends Controller
 
             $data->titulo       = $request->titulo;
             $data->descripcion  = $request->descripcion;
+            $data->plantilla_id  = $request->plantilla_id;
+            $data->palabras  = $request->palabras;
             $data->usuario_id   = Auth::guard('api')->user()->id;
             $data->save();
 

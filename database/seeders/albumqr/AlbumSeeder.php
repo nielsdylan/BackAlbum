@@ -20,6 +20,7 @@ class AlbumSeeder extends Seeder
             'estado'    => 1,
             'usuario_id'    => 1,
             'plantilla_id'    => 1,
+            'palabras'      => "ePSON ePSON",
             'created_at'    => date('Y-m-d H:i:s'),
             'updated_at'    => date('Y-m-d H:i:s'),
         ]);
@@ -29,6 +30,7 @@ class AlbumSeeder extends Seeder
             'estado'    => 1,
             'usuario_id'    => 1,
             'plantilla_id'    => 1,
+            'palabras'      => "ePSON ePSON",
             'created_at'    => date('Y-m-d H:i:s'),
             'updated_at'    => date('Y-m-d H:i:s'),
         ]);
@@ -38,6 +40,7 @@ class AlbumSeeder extends Seeder
             'estado'    => 1,
             'usuario_id'    => 1,
             'plantilla_id'    => 1,
+            'palabras'      => "ePSON ePSON",
             'created_at'    => date('Y-m-d H:i:s'),
             'updated_at'    => date('Y-m-d H:i:s'),
         ]);
