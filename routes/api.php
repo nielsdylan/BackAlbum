@@ -7,6 +7,7 @@ use App\Http\Controllers\Hotel\Configuration\NivelController;
 use App\Http\Controllers\Hotel\Configuration\TarifaController;
 use App\Http\Controllers\PanelControl\Galeria\AlbumesController;
 use App\Http\Controllers\PanelControl\Galeria\FotosController;
+use App\Http\Controllers\PanelControl\PlantillaController;
 use App\Http\Controllers\PanelControl\ServicioController;
 use App\Http\Controllers\PanelControl\SliderController;
 use App\Http\Middleware\JwtMiddleware;
@@ -83,6 +84,9 @@ Route::middleware([JwtMiddleware::class])->group(function(){
                 Route::post('/eliminar', [FotosController::class, 'eliminar']);
                 Route::get('/all-albumes', [FotosController::class, 'allAlbumes']);
             });
+        });
+        Route::prefix('plantillas')->group(function(){
+            Route::get('/lista', [PlantillaController::class, 'lista']);
         });
 
     });
