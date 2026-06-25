@@ -143,4 +143,13 @@ class FotosController extends Controller
         // Nota: Ya no es necesario envolverlo en ["data" => $lista]
         // porque paginate() ya crea una estructura con la llave 'data'.
     }
+    public function allUsuario($usuario_id)
+    {
+
+        $data = Imagen::where('usuario_id',$usuario_id)->get();
+
+        return response()->json($data, 200);
+        // Nota: Ya no es necesario envolverlo en ["data" => $lista]
+        // porque paginate() ya crea una estructura con la llave 'data'.
+    }
 }

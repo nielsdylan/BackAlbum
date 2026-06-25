@@ -75,6 +75,7 @@ Route::middleware([JwtMiddleware::class])->group(function(){
                 Route::post('/cambiarEstado', [AlbumesController::class, 'cambiarEstado']);
                 Route::post('/eliminar', [AlbumesController::class, 'eliminar']);
                 Route::get('/all-albumes', [AlbumesController::class, 'allAlbumes']);
+                Route::get('/generar-qr/{id}', [AlbumesController::class, 'generarQR']);
             });
             Route::prefix('fotos')->group(function(){
                 Route::get('/lista', [FotosController::class, 'lista']);
@@ -83,6 +84,7 @@ Route::middleware([JwtMiddleware::class])->group(function(){
                 Route::post('/cambiarEstado', [FotosController::class, 'cambiarEstado']);
                 Route::post('/eliminar', [FotosController::class, 'eliminar']);
                 Route::get('/all-albumes', [FotosController::class, 'allAlbumes']);
+                Route::get('/all-usuario/{usuario_id}', [FotosController::class, 'allUsuario']);
             });
         });
         Route::prefix('plantillas')->group(function(){
@@ -90,4 +92,8 @@ Route::middleware([JwtMiddleware::class])->group(function(){
         });
 
     });
+});
+
+Route::prefix('fotos')->group(function(){
+    Route::get('/all-usuario/{usuario_id}', [FotosController::class, 'allUsuario']);
 });

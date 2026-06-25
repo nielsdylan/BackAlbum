@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Albumqr\Album;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class AlbumesController extends Controller
 {
@@ -111,5 +112,20 @@ class AlbumesController extends Controller
         return response()->json($data, 200);
         // Nota: Ya no es necesario envolverlo en ["data" => $lista]
         // porque paginate() ya crea una estructura con la llave 'data'.
+    }
+    public function generarQR($id)
+    {
+        $album = Album::find($id);
+        $link = 'http://localhost:5173/template/plantilla1/'.$album->usuario_id;
+        $png = QrCode::format('png')
+        ->size(300)
+        ->color(0, 0, 0)       // Color del QR (Rojo)
+        ->backgroundColor(255, 255, 255) // Fondo (Blanco)
+        ->generate($link);
+        $base64Image = base64_encode($png);
+        return response()->json([
+            "imagen" => $base64Image,
+            "link"=>$link,
+        ], 200);
     }
 }
