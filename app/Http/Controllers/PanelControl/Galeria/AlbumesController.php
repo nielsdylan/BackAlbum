@@ -116,7 +116,7 @@ class AlbumesController extends Controller
     public function generarQR($id)
     {
         $album = Album::find($id);
-        $link = 'http://localhost:5173/template/plantilla1/'.$album->usuario_id;
+        $link = 'http://localhost:5173/template/plantilla'.$album->plantilla_id.'/'.$album->usuario_id.'/'.$id;
         $png = QrCode::format('png')
         ->size(300)
         ->color(0, 0, 0)       // Color del QR (Rojo)

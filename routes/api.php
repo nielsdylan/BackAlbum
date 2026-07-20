@@ -10,6 +10,7 @@ use App\Http\Controllers\PanelControl\Galeria\FotosController;
 use App\Http\Controllers\PanelControl\PlantillaController;
 use App\Http\Controllers\PanelControl\ServicioController;
 use App\Http\Controllers\PanelControl\SliderController;
+use App\Http\Controllers\Web\HomeController;
 use App\Http\Middleware\JwtMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -95,5 +96,5 @@ Route::middleware([JwtMiddleware::class])->group(function(){
 });
 
 Route::prefix('fotos')->group(function(){
-    Route::get('/all-usuario/{usuario_id}', [FotosController::class, 'allUsuario']);
+    Route::get('/all-usuario/{usuario_id}/{album_id}', [HomeController::class, 'allFotos']);
 });
