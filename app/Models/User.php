@@ -63,6 +63,8 @@ class User extends Authenticatable implements JWTSubject
      */
     public function getJWTCustomClaims()
     {
-        return [];
+        return [
+            'role' => 'admin' // Etiqueta oculta dentro del token
+        ];
     }
 }

@@ -39,6 +39,8 @@ class Cliente extends Authenticatable implements JWTSubject
 
     public function getJWTCustomClaims()
     {
-        return [];
+        return [
+            'role' => 'cliente' // Etiqueta oculta dentro del token
+        ];
     }
 }

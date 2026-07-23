@@ -21,8 +21,8 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::post('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/register', [AuthController::class, 'register'])->name('register');
+// Route::post('/login', [AuthController::class, 'login'])->name('login');
+// Route::post('/register', [AuthController::class, 'register'])->name('register');
 /*
 *
 * SESSION DE LOS CLIENTES
@@ -40,7 +40,7 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
         Route::post('/register', [QRAdminAuthAuthController::class, 'register'])->name('register');
     });
 
-Route::middleware([JwtMiddleware::class])->group(function(){
+Route::middleware([JwtMiddleware::class . ':api_cliente'])->group(function(){
     Route::prefix('auth')->group(function(){
         /*
         * AUTH DE CLIENTES
@@ -49,47 +49,6 @@ Route::middleware([JwtMiddleware::class])->group(function(){
         Route::post('qrclientes/logged-user', [AuthAuthController::class, 'loggedUser'])->name('me');
         Route::post('qrclientes/refresh-token', [AuthAuthController::class, 'refreshToken'])->name('refresh');
         Route::post('qrclientes/session-token', [AuthAuthController::class, 'sessionToken'])->name('session-token');
-        /*
-        * AUTH DE ADMINISTRADOR
-        */
-        Route::post('qradmin/logout', [AuthController::class, 'logout'])->name('logout');
-        Route::post('qradmin/logged-user', [AuthController::class, 'loggedUser'])->name('me');
-        Route::post('qradmin/refresh-token', [AuthController::class, 'refreshToken'])->name('refresh');
-        Route::post('qradmin/session-token', [AuthController::class, 'sessionToken'])->name('session-token');
-    });
-
-    Route::prefix('hotel')->group(function(){
-
-        Route::prefix('configuracion')->group(function(){
-            Route::prefix('niveles')->group(function(){
-                Route::get('/lista', [NivelController::class, 'lista']);
-                Route::get('/ver/{id}', [NivelController::class, 'ver']);
-                Route::post('/guardar', [NivelController::class, 'guardar']);
-                Route::post('/cambiarEstado', [NivelController::class, 'cambiarEstado']);
-                Route::post('/eliminar', [NivelController::class, 'eliminar']);
-            });
-            Route::prefix('categorias')->group(function(){
-                Route::get('/lista', [CategoriaController::class, 'lista']);
-                Route::get('/ver/{id}', [CategoriaController::class, 'ver']);
-                Route::post('/guardar', [CategoriaController::class, 'guardar']);
-                Route::post('/cambiarEstado', [CategoriaController::class, 'cambiarEstado']);
-                Route::post('/eliminar', [CategoriaController::class, 'eliminar']);
-            });
-            Route::prefix('tarifas')->group(function(){
-                Route::get('/lista', [TarifaController::class, 'lista']);
-                Route::get('/ver/{id}', [TarifaController::class, 'ver']);
-                Route::post('/guardar', [TarifaController::class, 'guardar']);
-                Route::post('/cambiarEstado', [TarifaController::class, 'cambiarEstado']);
-                Route::post('/eliminar', [TarifaController::class, 'eliminar']);
-            });
-            Route::prefix('habitaciones')->group(function(){
-                Route::get('/lista', [HabitacionController::class, 'lista']);
-                Route::get('/ver/{id}', [HabitacionController::class, 'ver']);
-                Route::post('/guardar', [HabitacionController::class, 'guardar']);
-                Route::post('/cambiarEstado', [HabitacionController::class, 'cambiarEstado']);
-                Route::post('/eliminar', [HabitacionController::class, 'eliminar']);
-            });
-        });
     });
     /*
     * RUTAS DEL PANEL DE CONTROL DE LA PAGINA WEB
@@ -125,4 +84,16 @@ Route::middleware([JwtMiddleware::class])->group(function(){
 
 Route::prefix('fotos')->group(function(){
     Route::get('/all-usuario/{usuario_id}/{album_id}', [HomeController::class, 'allFotos']);
+});
+Route::middleware([JwtMiddleware::class . ':api'])->group(function(){
+
+    Route::prefix('auth')->group(function(){
+        /*
+        * AUTH DE ADMINISTRADOR
+        */
+        Route::post('qradmin/logout', [AuthController::class, 'logout'])->name('logout');
+        Route::post('qradmin/logged-user', [AuthController::class, 'loggedUser'])->name('me');
+        Route::post('qradmin/refresh-token', [AuthController::class, 'refreshToken'])->name('refresh');
+        Route::post('qradmin/session-token', [AuthController::class, 'sessionToken'])->name('session-token');
+    });
 });
