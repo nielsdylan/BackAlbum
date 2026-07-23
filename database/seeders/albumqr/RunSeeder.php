@@ -18,6 +18,8 @@ class RunSeeder extends Seeder
         DB::table('albumqr.albumes')->truncate();
         DB::table('albumqr.plantillas')->truncate();
         DB::table('albumqr.plantillas_usuarios')->truncate();
+        DB::table('albumqr.clientes')->truncate();
+        DB::table('albumqr.personas')->truncate();
 
 
         $this->call([
@@ -25,6 +27,8 @@ class RunSeeder extends Seeder
             AlbumSeeder::class,
             PlantillaSeeder::class,
             PlantillaUsarioSeeder::class,
+            ClienteSeeder::class,
+            PersonaSeeder::class,
         ]);
     }
 }

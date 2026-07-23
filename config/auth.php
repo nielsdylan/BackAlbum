@@ -44,6 +44,11 @@ return [
             'driver' => 'jwt',
             'provider' => 'users',
         ],
+        // AGREGAR ESTO:
+        'api_cliente' => [
+            'driver' => 'jwt', // Usa el mismo driver que tiene tu guard 'api'
+            'provider' => 'clientes', // Apunta al provider que creamos arriba
+        ],
     ],
 
     /*
@@ -73,6 +78,11 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+        // AGREGAR ESTO:
+        'clientes' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Albumqr\Cliente::class,
+        ],
     ],
 
     /*

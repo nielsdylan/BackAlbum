@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('password');
             $table->integer('estado')->default(1);
             $table->integer('persona_id')->nullable();
-            $table->integer('hotel_sesion')->default(0);
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

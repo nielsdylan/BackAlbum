@@ -11,15 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('albumqr.clientes', function (Blueprint $table) {
+        Schema::create('albumqr.personas', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email');
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('numero_documento');
+            $table->string('nombres');
+            $table->string('apellidos');
+            $table->integer('telefono')->nullable();
             $table->integer('estado')->default(1);
-            $table->integer('persona_id');
-            $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('albumqr.clientes');
+        Schema::dropIfExists('albumqr.personas');
     }
 };

@@ -6,11 +6,39 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Cliente extends Model
+use Illuminate\Foundation\Auth\User as Authenticatable; // IMPORTANTE: Usar Authenticatable
+use Illuminate\Notifications\Notifiable;
+use Tymon\JWTAuth\Contracts\JWTSubject; // Requerido si usas Tymon JWT-Auth
+
+class Cliente extends Authenticatable implements JWTSubject
 {
     //
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, Notifiable;
     protected $table = 'albumqr.clientes';
-    protected $fillable = ['numero_documento','nombres','apellidos', 'email', 'telefono', 'estado'];
-    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'estado',
+        'persona_id'
+    ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+        'created_at',
+        'updated_at',
+        'deleted_at'
+    ];
+
+    // --- Métodos requeridos por JWT ---
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
 }

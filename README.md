@@ -3,7 +3,7 @@
 
 # migracion del modulo album 
     php artisan migrate:refresh --path=database/migrations/albumqr
-# Procede a ejecutar el seeder de hotel
+# Procede a ejecutar el seeder de album
     php artisan db:seed --class='Database\Seeders\albumqr\RunSeeder'
 
 # comando 

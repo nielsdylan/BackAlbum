@@ -19,6 +19,7 @@ class UsuarioSeeder extends Seeder
         $data->name         =   'Admin';
         $data->email        =   'admin@admin.com';
         $data->password     =   Hash::make('123456789');
+        $data->persona_id   =   1;
         $data->created_at   =   date('Y-m-d H:i:s');
         $data->updated_at   =   date('Y-m-d H:i:s');
         $data->save();

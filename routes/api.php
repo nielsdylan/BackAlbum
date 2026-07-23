@@ -5,11 +5,13 @@ use App\Http\Controllers\Hotel\Configuration\CategoriaController;
 use App\Http\Controllers\Hotel\Configuration\HabitacionController;
 use App\Http\Controllers\Hotel\Configuration\NivelController;
 use App\Http\Controllers\Hotel\Configuration\TarifaController;
+use App\Http\Controllers\PanelControl\Auth\AuthController as AuthAuthController;
 use App\Http\Controllers\PanelControl\Galeria\AlbumesController;
 use App\Http\Controllers\PanelControl\Galeria\FotosController;
 use App\Http\Controllers\PanelControl\PlantillaController;
 use App\Http\Controllers\PanelControl\ServicioController;
 use App\Http\Controllers\PanelControl\SliderController;
+use App\Http\Controllers\QRAdmin\Auth\AuthController as QRAdminAuthAuthController;
 use App\Http\Controllers\Web\HomeController;
 use App\Http\Middleware\JwtMiddleware;
 use Illuminate\Http\Request;
@@ -21,13 +23,39 @@ Route::get('/user', function (Request $request) {
 
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
+/*
+*
+* SESSION DE LOS CLIENTES
+*/
+    Route::prefix('qrcliente')->group(function(){
+        Route::post('/login', [AuthAuthController::class, 'login'])->name('login');
+        Route::post('/register', [AuthAuthController::class, 'register'])->name('register');
+    });
+/*
+*
+* SESSION DE LOS ADMINISTRADOR
+*/
+    Route::prefix('qradmin')->group(function(){
+        Route::post('/login', [QRAdminAuthAuthController::class, 'login'])->name('login');
+        Route::post('/register', [QRAdminAuthAuthController::class, 'register'])->name('register');
+    });
 
 Route::middleware([JwtMiddleware::class])->group(function(){
     Route::prefix('auth')->group(function(){
-        Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-        Route::post('/logged-user', [AuthController::class, 'loggedUser'])->name('me');
-        Route::post('/refresh-token', [AuthController::class, 'refreshToken'])->name('refresh');
-        Route::post('/session-token', [AuthController::class, 'sessionToken'])->name('session-token');
+        /*
+        * AUTH DE CLIENTES
+        */
+        Route::post('qrclientes/logout', [AuthAuthController::class, 'logout'])->name('logout');
+        Route::post('qrclientes/logged-user', [AuthAuthController::class, 'loggedUser'])->name('me');
+        Route::post('qrclientes/refresh-token', [AuthAuthController::class, 'refreshToken'])->name('refresh');
+        Route::post('qrclientes/session-token', [AuthAuthController::class, 'sessionToken'])->name('session-token');
+        /*
+        * AUTH DE ADMINISTRADOR
+        */
+        Route::post('qradmin/logout', [AuthController::class, 'logout'])->name('logout');
+        Route::post('qradmin/logged-user', [AuthController::class, 'loggedUser'])->name('me');
+        Route::post('qradmin/refresh-token', [AuthController::class, 'refreshToken'])->name('refresh');
+        Route::post('qradmin/session-token', [AuthController::class, 'sessionToken'])->name('session-token');
     });
 
     Route::prefix('hotel')->group(function(){
