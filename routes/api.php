@@ -12,6 +12,7 @@ use App\Http\Controllers\PanelControl\PlantillaController;
 use App\Http\Controllers\PanelControl\ServicioController;
 use App\Http\Controllers\PanelControl\SliderController;
 use App\Http\Controllers\QRAdmin\Auth\AuthController as QRAdminAuthAuthController;
+use App\Http\Controllers\QRAdmin\ClienteController;
 use App\Http\Controllers\Web\HomeController;
 use App\Http\Middleware\JwtMiddleware;
 use Illuminate\Http\Request;
@@ -100,6 +101,16 @@ Route::middleware([JwtMiddleware::class . ':api'])->group(function(){
         Route::post('/qradmin/logged-user', [QRAdminAuthAuthController::class, 'loggedUser'])->name('me');
         Route::post('/qradmin/refresh-token', [QRAdminAuthAuthController::class, 'refreshToken'])->name('refresh');
         Route::post('/qradmin/session-token', [QRAdminAuthAuthController::class, 'sessionToken'])->name('session-token');
+    });
+
+    Route::prefix('qr-admin')->group(function(){
+        Route::prefix('clientes')->group(function(){
+            Route::get('/lista', [ClienteController::class, 'lista']);
+            Route::get('/ver/{id}', [ClienteController::class, 'ver']);
+            Route::post('/guardar', [ClienteController::class, 'guardar']);
+            Route::post('/cambiarEstado', [ClienteController::class, 'cambiarEstado']);
+            Route::post('/eliminar', [ClienteController::class, 'eliminar']);
+        });
     });
 });
 
