@@ -31,15 +31,11 @@ Route::get('/user', function (Request $request) {
         Route::post('/login', [AuthAuthController::class, 'login'])->name('login');
         Route::post('/register', [AuthAuthController::class, 'register'])->name('register');
     });
+
 /*
 *
-* SESSION DE LOS ADMINISTRADOR
+* SRUTAS DEL PANEL DE COPNTROL
 */
-    Route::prefix('qradmin')->group(function(){
-        Route::post('/login', [QRAdminAuthAuthController::class, 'login'])->name('login');
-        Route::post('/register', [QRAdminAuthAuthController::class, 'register'])->name('register');
-    });
-
 Route::middleware([JwtMiddleware::class . ':api_cliente'])->group(function(){
     Route::prefix('auth')->group(function(){
         /*
@@ -82,18 +78,35 @@ Route::middleware([JwtMiddleware::class . ':api_cliente'])->group(function(){
     });
 });
 
-Route::prefix('fotos')->group(function(){
-    Route::get('/all-usuario/{usuario_id}/{album_id}', [HomeController::class, 'allFotos']);
-});
+/*
+*
+* SESSION DE LOS ADMINISTRADOR
+*/
+    Route::prefix('qradmin')->group(function(){
+        Route::post('/login', [QRAdminAuthAuthController::class, 'login'])->name('login');
+        Route::post('/register', [QRAdminAuthAuthController::class, 'register'])->name('register');
+    });
+/*
+*
+* RUTAS DEL ADMINISTRADOR
+*/
 Route::middleware([JwtMiddleware::class . ':api'])->group(function(){
 
     Route::prefix('auth')->group(function(){
         /*
         * AUTH DE ADMINISTRADOR
         */
-        Route::post('qradmin/logout', [AuthController::class, 'logout'])->name('logout');
-        Route::post('qradmin/logged-user', [AuthController::class, 'loggedUser'])->name('me');
-        Route::post('qradmin/refresh-token', [AuthController::class, 'refreshToken'])->name('refresh');
-        Route::post('qradmin/session-token', [AuthController::class, 'sessionToken'])->name('session-token');
+        Route::post('/qradmin/logout', [QRAdminAuthAuthController::class, 'logout'])->name('logout');
+        Route::post('/qradmin/logged-user', [QRAdminAuthAuthController::class, 'loggedUser'])->name('me');
+        Route::post('/qradmin/refresh-token', [QRAdminAuthAuthController::class, 'refreshToken'])->name('refresh');
+        Route::post('/qradmin/session-token', [QRAdminAuthAuthController::class, 'sessionToken'])->name('session-token');
     });
+});
+
+/*
+*
+* RUTAS SIN PROTECCION
+*/
+Route::prefix('fotos')->group(function(){
+    Route::get('/all-usuario/{usuario_id}/{album_id}', [HomeController::class, 'allFotos']);
 });
