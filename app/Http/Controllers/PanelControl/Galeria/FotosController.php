@@ -15,7 +15,7 @@ class FotosController extends Controller
     {
 
         $limit = $request->input('limit', 5);
-        $lista = Imagen::orderBy('id', 'asc')->paginate($limit);
+        $lista = Imagen::where('cliente_id',Auth::guard('api_cliente')->user()->id)->orderBy('id', 'asc')->paginate($limit);
 
         return response()->json($lista, 200);
         // Nota: Ya no es necesario envolverlo en ["data" => $lista]
@@ -30,7 +30,7 @@ class FotosController extends Controller
     public function guardar(Request $request)
     {
         // return [$request->all()];exit;
-        // return [Auth::guard('api')->user()->id];exit;
+        // return [Auth::guard('api_cliente')->user()->id];exit;
         try {
             $data = Imagen::firstOrNew(
                 ['id' => $request->id],
@@ -67,7 +67,7 @@ class FotosController extends Controller
             }
 
 
-            $data->usuario_id   = Auth::guard('api')->user()->id;
+            $data->cliente_id   = Auth::guard('api_cliente')->user()->id;
 
             $data->albumes_id   = $request->album_id;
 

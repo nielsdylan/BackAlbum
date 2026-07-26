@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('titulo');
             $table->string('descripcion');
             $table->integer('estado')->default(1);
-            $table->integer('usuario_id');
+            $table->integer('cliente_id');
             $table->integer('plantilla_id');
             $table->string('palabras');
             $table->timestamps();

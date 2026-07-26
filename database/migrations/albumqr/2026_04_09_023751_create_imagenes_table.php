@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('weightKB');
             $table->string('path');
             $table->string('extension');
-            $table->integer('usuario_id');
+            $table->integer('cliente_id');
             $table->integer('albumes_id');
             $table->timestamps();
             $table->softDeletes();

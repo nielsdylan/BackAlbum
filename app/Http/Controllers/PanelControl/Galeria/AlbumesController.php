@@ -15,7 +15,7 @@ class AlbumesController extends Controller
     {
 
         $limit = $request->input('limit', 5);
-        $lista = Album::orderBy('id', 'asc')->paginate($limit);
+        $lista = Album::where('cliente_id',Auth::guard('api_cliente')->user()->id)->orderBy('id', 'asc')->paginate($limit);
 
         return response()->json($lista, 200);
         // Nota: Ya no es necesario envolverlo en ["data" => $lista]
@@ -30,7 +30,7 @@ class AlbumesController extends Controller
     public function guardar(Request $request)
     {
         // return [$request->all()];exit;
-        // return [Auth::guard('api')->user()->id];exit;
+        // return [Auth::guard('api_cliente')->user()->id];exit;
         try {
             $data = Album::firstOrNew(
                 ['id' => $request->id],
@@ -38,9 +38,9 @@ class AlbumesController extends Controller
 
             $data->titulo       = $request->titulo;
             $data->descripcion  = $request->descripcion;
-            $data->plantilla_id  = $request->plantilla_id;
-            $data->palabras  = $request->palabras;
-            $data->usuario_id   = Auth::guard('api')->user()->id;
+            $data->plantilla_id = $request->plantilla_id;
+            $data->palabras     = $request->palabras;
+            $data->cliente_id   = Auth::guard('api_cliente')->user()->id;
             $data->save();
 
             return response()->json([
