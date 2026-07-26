@@ -4,7 +4,9 @@ namespace App\Http\Controllers\QRAdmin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Albumqr\Cliente;
+use App\Models\Albumqr\Persona;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class ClienteController extends Controller
 {
@@ -27,8 +29,8 @@ class ClienteController extends Controller
     }
     public function ver($id)
     {
-        $data = Cliente::find($id);
-
+        // $data = Cliente::find($id);
+        $data = Cliente::with('persona')->where('persona_id', $id)->first();
         return response()->json($data, 200);
     }
     public function guardar(Request $request)
@@ -36,16 +38,33 @@ class ClienteController extends Controller
         // return [$request->all()];exit;
         // return [Auth::guard('api')->user()->id];exit;
         try {
-            $data = Cliente::firstOrNew(
+            $persona = Persona::firstOrNew(
                 ['id' => $request->id],
             );
 
-            $data->titulo       = $request->titulo;
-            $data->descripcion  = $request->descripcion;
-            $data->plantilla_id  = $request->plantilla_id;
-            $data->palabras  = $request->palabras;
+            $persona->numero_documento = $request->numero_documento;
+            $persona->apellidos        = $request->apellidos;
+            $persona->nombres          = $request->nombres;
+            $persona->telefono         = $request->telefono;
             // $data->usuario_id   = Auth::guard('api')->user()->id;
-            $data->save();
+            $persona->save();
+
+            // Tomamos la primera letra y la pasamos a mayúscula
+            $inicialNombre   = mb_strtoupper(mb_substr($request->nombres, 0, 1));
+            $inicialApellido = mb_strtoupper(mb_substr($request->apellidos, 0, 1));
+
+            // Concatenamos ambas iniciales
+            $iniciales = $inicialNombre . $inicialApellido; // Ejemplo: "JP"
+
+            $cliente = Cliente::firstOrNew(
+                ['persona_id' => $persona->id],
+            );
+
+            $cliente->email     = $request->email;
+            $cliente->name      = $iniciales;
+            $cliente->password  = Hash::make($request->password);
+            // $data->usuario_id   = Auth::guard('api')->user()->id;
+            $cliente->save();
 
             return response()->json([
                 "title" => "Éxito",
