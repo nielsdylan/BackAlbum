@@ -13,7 +13,13 @@ class ClienteController extends Controller
     {
 
         $limit = $request->input('limit', 5);
-        $lista = Cliente::orderBy('id', 'asc')->paginate($limit);
+        // $lista = Cliente::orderBy('id', 'asc')->paginate($limit);
+
+
+        // Agregamos with('persona') para cargar la relación
+        $lista = Cliente::with('persona')
+        ->orderBy('id', 'asc')
+        ->paginate($limit);
 
         return response()->json($lista, 200);
         // Nota: Ya no es necesario envolverlo en ["data" => $lista]

@@ -4,6 +4,7 @@ namespace App\Models\Albumqr;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Illuminate\Foundation\Auth\User as Authenticatable; // IMPORTANTE: Usar Authenticatable
@@ -42,5 +43,9 @@ class Cliente extends Authenticatable implements JWTSubject
         return [
             'role' => 'cliente' // Etiqueta oculta dentro del token
         ];
+    }
+    public function persona(): BelongsTo
+    {
+        return $this->belongsTo(Persona::class);
     }
 }
