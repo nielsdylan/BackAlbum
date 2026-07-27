@@ -7,6 +7,7 @@ use App\Models\Albumqr\Cliente;
 use App\Models\Albumqr\Persona;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class ClienteController extends Controller
 {
@@ -38,13 +39,14 @@ class ClienteController extends Controller
         // return [$request->all()];exit;
         // return [Auth::guard('api')->user()->id];exit;
         try {
+        // return $request->all();
             $persona = Persona::firstOrNew(
                 ['id' => $request->id],
             );
 
             $persona->numero_documento = $request->numero_documento;
-            $persona->apellidos        = $request->apellidos;
-            $persona->nombres          = $request->nombres;
+            $persona->apellidos        = Str::upper($request->apellidos);
+            $persona->nombres          = Str::upper($request->nombres);
             $persona->telefono         = $request->telefono;
             // $data->usuario_id   = Auth::guard('api')->user()->id;
             $persona->save();

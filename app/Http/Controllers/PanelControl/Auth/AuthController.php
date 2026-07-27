@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\PanelControl\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Albumqr\Cliente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -27,7 +28,7 @@ class AuthController extends Controller
             return response()->json($validator->errors()->toJson(), 400);
         }
 
-        $user = new User();
+        $user = new Cliente();
         $user->name = request()->name;
         $user->email = request()->email;
         $user->password = bcrypt(request()->password);
@@ -48,6 +49,7 @@ class AuthController extends Controller
         $credentials = request(['email', 'password']);
 
         if (! $token = Auth::guard('api_cliente')->attempt($credentials)) {
+        // if (! $token = auth('api_cliente')->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
@@ -73,7 +75,7 @@ class AuthController extends Controller
     {
         Auth::guard('api_cliente')->logout();
 
-        return response()->json(['message' => 'Successfully logged out']);
+        return response()->json(['message' => 'Successfully logged out', 'status'=>true]);
     }
 
     /**

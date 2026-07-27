@@ -119,5 +119,5 @@ Route::middleware([JwtMiddleware::class . ':api'])->group(function(){
 * RUTAS SIN PROTECCION
 */
 Route::prefix('fotos')->group(function(){
-    Route::get('/all-usuario/{usuario_id}/{album_id}', [HomeController::class, 'allFotos']);
+    Route::get('/all-usuario/{cliente_id}/{album_id}', [HomeController::class, 'allFotos']);
 });

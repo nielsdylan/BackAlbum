@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('numero_documento');
             $table->string('nombres');
             $table->string('apellidos');
-            $table->integer('telefono')->nullable();
+            $table->string('telefono')->nullable();
             $table->integer('estado')->default(1);
             $table->timestamps();
             $table->softDeletes();

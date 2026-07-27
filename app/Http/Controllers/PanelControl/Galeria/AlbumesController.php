@@ -107,7 +107,7 @@ class AlbumesController extends Controller
     public function allAlbumes()
     {
 
-        $data = Album::all();
+        $data = Album::where('cliente_id',Auth::guard('api_cliente')->user()->id)->get();
 
         return response()->json($data, 200);
         // Nota: Ya no es necesario envolverlo en ["data" => $lista]
@@ -116,7 +116,7 @@ class AlbumesController extends Controller
     public function generarQR($id)
     {
         $album = Album::find($id);
-        $link = 'http://localhost:5173/template/plantilla'.$album->plantilla_id.'/'.$album->usuario_id.'/'.$id;
+        $link = 'http://localhost:5173/template/plantilla'.$album->plantilla_id.'/'.$album->cliente_id.'/'.$id;
         $png = QrCode::format('png')
         ->size(300)
         ->color(0, 0, 0)       // Color del QR (Rojo)
