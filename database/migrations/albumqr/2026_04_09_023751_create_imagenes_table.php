@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('extension');
             $table->integer('cliente_id');
             $table->integer('albumes_id');
+            $table->integer('estado')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });

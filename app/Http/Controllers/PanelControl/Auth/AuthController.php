@@ -47,7 +47,8 @@ class AuthController extends Controller
     {
 
         $credentials = request(['email', 'password']);
-
+        // Agregamos la condición de que el estado sea 1 (Activo)
+        $credentials['estado'] = 1;
         if (! $token = Auth::guard('api_cliente')->attempt($credentials)) {
         // if (! $token = auth('api_cliente')->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);

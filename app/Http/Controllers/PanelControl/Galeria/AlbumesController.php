@@ -15,7 +15,7 @@ class AlbumesController extends Controller
     {
 
         $limit = $request->input('limit', 5);
-        $lista = Album::where('cliente_id',Auth::guard('api_cliente')->user()->id)->orderBy('id', 'asc')->paginate($limit);
+        $lista = Album::where('cliente_id',Auth::guard('api_cliente')->user()->id)->where('estado',1)->orderBy('id', 'asc')->paginate($limit);
 
         return response()->json($lista, 200);
         // Nota: Ya no es necesario envolverlo en ["data" => $lista]
@@ -69,7 +69,7 @@ class AlbumesController extends Controller
             $data->save();
             return response()->json([
                 "title" => "Éxito",
-                "text" => "Se cambio el estado con éxito",
+                "text" => "Se elimino con éxito",
                 "icon" => "success",
                 "tipe" => true,
             ], 200);
@@ -107,7 +107,7 @@ class AlbumesController extends Controller
     public function allAlbumes()
     {
 
-        $data = Album::where('cliente_id',Auth::guard('api_cliente')->user()->id)->get();
+        $data = Album::where('cliente_id',Auth::guard('api_cliente')->user()->id)->where('estado',1)->get();
 
         return response()->json($data, 200);
         // Nota: Ya no es necesario envolverlo en ["data" => $lista]

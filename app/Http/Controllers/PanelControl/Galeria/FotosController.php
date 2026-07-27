@@ -15,7 +15,7 @@ class FotosController extends Controller
     {
 
         $limit = $request->input('limit', 5);
-        $lista = Imagen::where('cliente_id',Auth::guard('api_cliente')->user()->id)->orderBy('id', 'asc')->paginate($limit);
+        $lista = Imagen::where('cliente_id',Auth::guard('api_cliente')->user()->id)->where('estado',1)->orderBy('id', 'asc')->paginate($limit);
 
         return response()->json($lista, 200);
         // Nota: Ya no es necesario envolverlo en ["data" => $lista]
@@ -146,7 +146,7 @@ class FotosController extends Controller
     public function allUsuario($usuario_id)
     {
 
-        $data = Imagen::where('usuario_id',$usuario_id)->get();
+        $data = Imagen::where('usuario_id',$usuario_id)->where('estado',1)->get();
 
         return response()->json($data, 200);
         // Nota: Ya no es necesario envolverlo en ["data" => $lista]
